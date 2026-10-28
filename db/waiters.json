@@ -1,0 +1,160 @@
+{
+  "Waiters": [
+    {
+      "PutRequest": {
+        "Item": {
+          "userId": { "S": "wtr-001-alex" },
+          "locationId": { "S": "7d598da3-0887-4a04-a3a1-fe26d8a4a4f2" },
+          "firstName": { "S": "Alex" },
+          "lastName": { "S": "Petrov" },
+          "email": { "S": "alex.waiter@restaurant.com" },
+          "phone": { "S": "+380971112233" },
+          "isShiftActive": { "BOOL": true }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "userId": { "S": "wtr-002-maria" },
+          "locationId": { "S": "7d598da3-0887-4a04-a3a1-fe26d8a4a4f2" },
+          "firstName": { "S": "Maria" },
+          "lastName": { "S": "Koval" },
+          "email": { "S": "maria.waiter@restaurant.com" },
+          "phone": { "S": "+380972223344" },
+          "isShiftActive": { "BOOL": true }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "userId": { "S": "wtr-003-dmytro" },
+          "locationId": { "S": "2de08053-9bec-4662-bf56-2ccb70aeeb78" },
+          "firstName": { "S": "Dmytro" },
+          "lastName": { "S": "Sydorenko" },
+          "email": { "S": "dmytro.waiter@restaurant.com" },
+          "phone": { "S": "+380973334455" },
+          "isShiftActive": { "BOOL": false }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "userId": { "S": "wtr-004-olena" },
+          "locationId": { "S": "98c4acc4-ca8b-4416-be9d-ef40f1e73e0a" },
+          "firstName": { "S": "Olena" },
+          "lastName": { "S": "Belenko" },
+          "email": { "S": "olena.waiter@restaurant.com" },
+          "phone": { "S": "+380974445566" },
+          "isShiftActive": { "BOOL": true }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "userId": { "S": "wtr-005-andrii" },
+          "locationId": { "S": "7d598da3-0887-4a04-a3a1-fe26d8a4a4f2" },
+          "firstName": { "S": "Andrii" },
+          "lastName": { "S": "Shevchenko" },
+          "email": { "S": "andrii.waiter@restaurant.com" },
+          "phone": { "S": "+380975556677" },
+          "isShiftActive": { "BOOL": false }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "userId": { "S": "wtr-006-sofia" },
+          "locationId": { "S": "7d598da3-0887-4a04-a3a1-fe26d8a4a4f2" },
+          "firstName": { "S": "Sofia" },
+          "lastName": { "S": "Melnyk" },
+          "email": { "S": "sofia.waiter@restaurant.com" },
+          "phone": { "S": "+380976667788" },
+          "isShiftActive": { "BOOL": true }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "userId": { "S": "wtr-007-bohdan" },
+          "locationId": { "S": "2de08053-9bec-4662-bf56-2ccb70aeeb78" },
+          "firstName": { "S": "Bohdan" },
+          "lastName": { "S": "Tkachenko" },
+          "email": { "S": "bohdan.waiter@restaurant.com" },
+          "phone": { "S": "+380977778899" },
+          "isShiftActive": { "BOOL": true }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "userId": { "S": "wtr-008-yulia" },
+          "locationId": { "S": "2de08053-9bec-4662-bf56-2ccb70aeeb78" },
+          "firstName": { "S": "Yulia" },
+          "lastName": { "S": "Kravchenko" },
+          "email": { "S": "yulia.waiter@restaurant.com" },
+          "phone": { "S": "+380978889900" },
+          "isShiftActive": { "BOOL": true }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "userId": { "S": "wtr-009-maksym" },
+          "locationId": { "S": "2de08053-9bec-4662-bf56-2ccb70aeeb78" },
+          "firstName": { "S": "Maksym" },
+          "lastName": { "S": "Boyko" },
+          "email": { "S": "maksym.waiter@restaurant.com" },
+          "phone": { "S": "+380979990011" },
+          "isShiftActive": { "BOOL": false }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "userId": { "S": "wtr-010-khrystyna" },
+          "locationId": { "S": "98c4acc4-ca8b-4416-be9d-ef40f1e73e0a" },
+          "firstName": { "S": "Khrystyna" },
+          "lastName": { "S": "Oliynyk" },
+          "email": { "S": "khrystyna.waiter@restaurant.com" },
+          "phone": { "S": "+380970001122" },
+          "isShiftActive": { "BOOL": true }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "userId": { "S": "wtr-011-taras" },
+          "locationId": { "S": "98c4acc4-ca8b-4416-be9d-ef40f1e73e0a" },
+          "firstName": { "S": "Taras" },
+          "lastName": { "S": "Moroz" },
+          "email": { "S": "taras.waiter@restaurant.com" },
+          "phone": { "S": "+380971113355" },
+          "isShiftActive": { "BOOL": true }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "userId": { "S": "wtr-012-viktoria" },
+          "locationId": { "S": "98c4acc4-ca8b-4416-be9d-ef40f1e73e0a" },
+          "firstName": { "S": "Viktoria" },
+          "lastName": { "S": "Lysenkov" },
+          "email": { "S": "viktoria.waiter@restaurant.com" },
+          "phone": { "S": "+380972224466" },
+          "isShiftActive": { "BOOL": false }
+        }
+      }
+    }
+  ]
+}

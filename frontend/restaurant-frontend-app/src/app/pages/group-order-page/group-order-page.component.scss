@@ -1,0 +1,373 @@
+@use '../../shared/styles/abstracts/colors' as color;
+
+.page {
+  box-sizing: border-box;
+  min-height: calc(100vh - 64px);
+  padding: 28px 16px;
+  background-color: color.$neutral-200;
+}
+
+.content {
+  box-sizing: border-box;
+  width: min(100%, 850px);
+  margin: 0 auto;
+  padding: 30px 32px;
+  background-color: transparent;
+  border: 1px solid color.$neutral-0;
+  border-radius: 20px;
+  box-shadow: 0 8px 26px color.$shadow;
+}
+
+.page-header {
+  padding-bottom: 14px;
+  border-bottom: 1px solid color.$green-150;
+}
+
+.title-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  margin-bottom: 14px;
+}
+
+h1 {
+  font-size: clamp(1.5rem, 4vw, 1.8rem);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+}
+
+.order-status {
+  padding: 4px 12px;
+  color: color.$neutral-900;
+  background-color: color.$neutral-200;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+.order-status.submitted {
+  color: color.$green-800;
+  background-color: color.$green-100;
+}
+
+.details {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 20px;
+}
+
+.detail {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.detail svg {
+  flex: 0 0 16px;
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: color.$green-600;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+
+.participants {
+  display: grid;
+  gap: 18px;
+  margin: 20px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pending-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 20px;
+  padding: 13px 15px;
+  background-color: color.$orange-30;
+  border: 1px solid color.$orange-100;
+  border-radius: 10px;
+  color: color.$neutral-900;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.pending-notice svg {
+  flex: 0 0 18px;
+  width: 18px;
+  height: 18px;
+  margin-top: 1px;
+  fill: none;
+  stroke: color.$neutral-700;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.7;
+}
+
+.sync-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 16px;
+  color: color.$neutral-600;
+  font-size: 0.8125rem;
+}
+
+.sync-info {
+  min-width: 0;
+}
+
+.sync-error {
+  color: color.$orange-600;
+}
+
+.empty-state,
+.state-message {
+  padding: 20px 0;
+  color: color.$neutral-600;
+  text-align: center;
+}
+
+.consolidated {
+  padding: 18px 20px;
+  background-color: color.$neutral-0;
+  border: 1px solid color.$neutral-200;
+  border-radius: 14px;
+}
+
+.consolidated-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.consolidated-heading h2 {
+  margin-bottom: 3px;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.consolidated-heading p {
+  color: color.$neutral-600;
+  font-size: 0.8125rem;
+}
+
+.included-count {
+  flex: 0 0 auto;
+  padding: 4px 9px;
+  color: color.$green-800;
+  background-color: color.$green-100;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.consolidated-items {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.consolidated-items li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.875rem;
+}
+
+.consolidated-items li span:first-child {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.consolidated-items li span:last-child {
+  white-space: nowrap;
+}
+
+.summary {
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid color.$green-150;
+}
+
+.grand-total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+  color: color.$green-800;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.grand-total span:last-child {
+  white-space: nowrap;
+}
+
+.submit-button {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 52px;
+  padding: 12px 20px;
+  color: color.$neutral-0;
+  background: color.$green-gradient;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 600;
+  transition:
+    filter 150ms ease,
+    transform 150ms ease;
+}
+
+.submit-button:not(:disabled):hover {
+  filter: brightness(1.08);
+}
+
+.submit-button:not(:disabled):active {
+  transform: translateY(1px);
+}
+
+.submit-button:focus-visible,
+.secondary-button:focus-visible,
+.confirm-button:focus-visible {
+  outline: 3px solid color.$green-300;
+  outline-offset: 3px;
+}
+
+.submit-button:disabled,
+.confirm-button:disabled,
+.secondary-button:disabled {
+  background: color.$neutral-200;
+  color: color.$neutral-600;
+  cursor: not-allowed;
+}
+
+.error-state {
+  display: grid;
+  justify-items: center;
+  gap: 16px;
+  min-height: 220px;
+  align-content: center;
+  text-align: center;
+}
+
+.error-state h1 {
+  font-size: 1.25rem;
+}
+
+.secondary-button,
+.confirm-button {
+  min-height: 40px;
+  padding: 8px 18px;
+  border: 1px solid color.$neutral-200;
+  border-radius: 8px;
+  background-color: color.$neutral-0;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 500;
+}
+
+.confirm-button {
+  color: color.$neutral-0;
+  background: color.$green-gradient;
+  border-color: color.$green-600;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+@media (max-width: 600px) {
+  .page {
+    min-height: calc(100vh - 64px);
+    padding: 12px 10px;
+  }
+
+  .content {
+    padding: 20px 14px;
+    border-radius: 16px;
+  }
+
+  .details {
+    align-items: flex-start;
+    gap: 9px 14px;
+  }
+
+  .detail {
+    align-items: flex-start;
+    font-size: 0.8125rem;
+    overflow-wrap: anywhere;
+  }
+
+  .detail svg {
+    margin-top: 1px;
+  }
+
+  .participants {
+    gap: 14px;
+    margin: 16px 0;
+  }
+
+  .grand-total {
+    font-size: 1.25rem;
+  }
+
+  .consolidated {
+    padding: 16px 12px;
+  }
+
+  .submit-button {
+    min-height: 50px;
+  }
+}
+
+@media (max-width: 380px) {
+  .page {
+    padding-right: 8px;
+    padding-left: 8px;
+  }
+
+  .content {
+    padding-right: 11px;
+    padding-left: 11px;
+  }
+
+  .details {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .detail:first-child {
+    grid-column: 1 / -1;
+  }
+
+  .title-row {
+    gap: 8px;
+  }
+
+  .order-status {
+    padding-right: 9px;
+    padding-left: 9px;
+  }
+}

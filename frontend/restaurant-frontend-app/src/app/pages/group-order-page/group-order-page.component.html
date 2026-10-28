@@ -1,0 +1,173 @@
+<main class="page">
+  <div class="content">
+    @if (loading()) {
+      <p class="state-message" role="status">Loading group pre-order…</p>
+    } @else if (loadError()) {
+      <section class="error-state" role="alert">
+        <h1>{{ loadError() }}</h1>
+        @if (!accessDenied()) {
+          <button class="secondary-button" type="button" (click)="loadGroupOrder()">
+            Try again
+          </button>
+        }
+      </section>
+    } @else if (invite(); as groupInvite) {
+      <header class="page-header">
+        <div class="title-row">
+          <h1>Group Pre-Order</h1>
+          <span class="order-status" [class.submitted]="groupStatus()?.status === 'Submitted'">
+            {{ statusLabel() }}
+          </span>
+        </div>
+
+        <div class="details" aria-label="Group reservation details">
+          <p class="detail">
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" />
+              <circle cx="12" cy="10" r="2.5" />
+            </svg>
+            <span>{{ groupInvite.LocationAddress }}</span>
+          </p>
+          <p class="detail">
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <rect x="3" y="5" width="18" height="16" rx="2" />
+              <path d="M16 3v4M8 3v4M3 10h18" />
+            </svg>
+            <span>{{ groupInvite.StartTime | date: 'MMM d, y' : 'UTC' }}</span>
+          </p>
+          <p class="detail">
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="9" />
+              <path d="M12 7v5l3 2" />
+            </svg>
+            <span
+              >{{ groupInvite.StartTime | date: 'HH:mm' : 'UTC' }} -
+              {{ groupInvite.EndTime | date: 'HH:mm' : 'UTC' }}</span
+            >
+          </p>
+          <p class="detail">
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path
+                d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"
+              />
+            </svg>
+            <span
+              >{{ groupStatus()?.currentParticipants }} of
+              {{ groupInvite.MaxGuestCount }} guests</span
+            >
+          </p>
+        </div>
+      </header>
+
+      @if (pendingParticipants() > 0 && groupStatus()?.status === 'Open') {
+        <p class="pending-notice" role="status">
+          <svg aria-hidden="true" viewBox="0 0 24 24">
+            <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9ZM10 21h4" />
+          </svg>
+          <span>
+            {{ pendingParticipants() }}
+            {{ pendingParticipants() === 1 ? 'participant hasn’t' : 'participants haven’t' }}
+            submitted their cart yet — their dishes won’t be included in the order.
+          </span>
+        </p>
+      }
+
+      @if (groupStatus()?.status === 'Open') {
+        <div class="sync-bar">
+          <div class="sync-info">
+            @if (refreshError()) {
+              <p class="sync-error">
+                Couldn't refresh. Showing data from {{ updatedAt() | date: 'HH:mm:ss' }}.
+              </p>
+            } @else {
+              <p>Updated at {{ updatedAt() | date: 'HH:mm:ss' }}</p>
+            }
+          </div>
+          <button class="secondary-button" type="button" (click)="refresh()">Refresh</button>
+        </div>
+      }
+
+      @if (participants().length > 0) {
+        <ul class="participants">
+          @for (person of participants(); track person.id) {
+            <li>
+              <app-participant-card
+                [participant]="person"
+                [isMe]="person.id === guestSessionId()"
+              />
+            </li>
+          }
+        </ul>
+      }
+
+      @if (!hasAnyDishes()) {
+        <p class="empty-state">Participants haven’t added any dishes yet</p>
+      }
+
+      <section class="consolidated" aria-labelledby="consolidated-title">
+        <div class="consolidated-heading">
+          <div>
+            <h2 id="consolidated-title">Consolidated pre-order</h2>
+            <p>Only submitted carts are included</p>
+          </div>
+          <span class="included-count">
+            {{ consolidatedOrder().items.length }}
+            {{ consolidatedOrder().items.length === 1 ? 'item' : 'items' }}
+          </span>
+        </div>
+        @if (consolidatedOrder().items.length > 0) {
+          <ul class="consolidated-items">
+            @for (item of consolidatedOrder().items; track item.dish.id) {
+              <li>
+                <span>{{ item.dish.name }} × {{ item.quantity }}</span>
+                <span>{{ item.dish.price * item.quantity | currency }}</span>
+              </li>
+            }
+          </ul>
+        } @else {
+          <p class="empty-state">No confirmed dishes to include.</p>
+        }
+      </section>
+
+      <footer class="summary">
+        <p class="grand-total">
+          <span>Grand Total</span><span>{{ consolidatedOrder().total | currency }}</span>
+        </p>
+        @if (groupStatus()?.status === 'Open') {
+          <button
+            class="submit-button"
+            type="button"
+            [disabled]="!canSubmit()"
+            (click)="openConfirmation()"
+          >
+            Submit Pre-Order
+          </button>
+        }
+      </footer>
+
+      @if (isConfirmationOpen()) {
+        <app-modal title="Submit Pre-Order" (closed)="closeConfirmation()">
+          <p>Submit the confirmed dishes to the restaurant?</p>
+          <div modal-actions class="dialog-actions">
+            <button
+              class="secondary-button"
+              type="button"
+              [disabled]="isSubmitting()"
+              (click)="closeConfirmation()"
+            >
+              Cancel
+            </button>
+            <button
+              class="confirm-button"
+              type="button"
+              [disabled]="isSubmitting()"
+              (click)="submitPreOrder()"
+            >
+              {{ isSubmitting() ? 'Submitting…' : 'Submit' }}
+            </button>
+          </div>
+        </app-modal>
+      }
+    }
+  </div>
+</main>

@@ -1,0 +1,175 @@
+@use '../../../shared/styles/abstracts/colors' as color;
+
+:host {
+  display: block;
+  min-width: 0;
+}
+
+.card {
+  box-sizing: border-box;
+  padding: 18px 20px;
+  background-color: color.$neutral-0;
+  border-radius: 14px;
+  box-shadow: 0 1px 3px color.$shadow;
+}
+
+.card-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 12px;
+  margin-bottom: 12px;
+}
+
+.title {
+  min-width: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 24px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.25;
+  white-space: nowrap;
+}
+
+.submitted {
+  color: color.$green-800;
+  background-color: color.$green-100;
+}
+
+.pending {
+  color: color.$neutral-900;
+  background-color: color.$orange-100;
+}
+
+.status-indicator {
+  width: 7px;
+  height: 7px;
+  background-color: color.$green-600;
+  border-radius: 50%;
+}
+
+.pending .status-indicator {
+  background-color: color.$orange-600;
+}
+
+.items {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 10px;
+  min-height: 62px;
+  padding: 9px 0;
+  border-bottom: 1px solid color.$neutral-100;
+}
+
+.avatar {
+  display: block;
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.initial {
+  display: grid;
+  place-items: center;
+  color: color.$neutral-600;
+  background-color: color.$green-100;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.name {
+  min-width: 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.qty,
+.price {
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+
+.qty {
+  padding: 3px 6px;
+  color: color.$neutral-600;
+  background-color: color.$neutral-100;
+  border-radius: 5px;
+}
+
+.price {
+  min-width: 58px;
+  text-align: right;
+  font-weight: 500;
+}
+
+.empty {
+  padding: 12px 0;
+  color: color.$neutral-600;
+  font-size: 0.875rem;
+}
+
+.subtotal {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 2px;
+  padding: 14px 0 0;
+  font-weight: 700;
+}
+
+.subtotal strong {
+  font-weight: inherit;
+}
+
+.subtotal span:last-child {
+  white-space: nowrap;
+}
+
+@media (max-width: 420px) {
+  .card {
+    padding: 16px 12px;
+  }
+
+  .item {
+    grid-template-columns: 36px minmax(0, 1fr) auto auto;
+    gap: 6px;
+  }
+
+  .avatar {
+    width: 36px;
+    height: 36px;
+  }
+
+  .price {
+    min-width: 46px;
+    font-size: 0.8125rem;
+  }
+
+  .qty {
+    padding: 3px 5px;
+    font-size: 0.8125rem;
+  }
+}
