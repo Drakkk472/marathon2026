@@ -12,7 +12,11 @@
   width: min(100%, 850px);
   margin: 0 auto;
   padding: 30px 32px;
+<<<<<<< HEAD
   background-color: transparent;
+=======
+  background-color: color.$neutral-0;
+>>>>>>> bc0f637 (first commit)
   border: 1px solid color.$neutral-0;
   border-radius: 20px;
   box-shadow: 0 8px 26px color.$shadow;
@@ -291,6 +295,38 @@ h1 {
   border-color: color.$green-600;
 }
 
+<<<<<<< HEAD
+=======
+.remove-confirm-button {
+  min-height: 40px;
+  padding: 8px 18px;
+  color: color.$red-400;
+  background-color: color.$neutral-0;
+  border: 1px solid color.$red-400;
+  border-radius: 8px;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 500;
+}
+
+.remove-confirm-button:focus-visible {
+  outline: 3px solid color.$red-100;
+  outline-offset: 3px;
+}
+
+.remove-confirm-button:disabled {
+  color: color.$neutral-600;
+  background-color: color.$neutral-200;
+  border-color: color.$neutral-200;
+  cursor: not-allowed;
+}
+
+.remove-error {
+  color: color.$red-400;
+  font-size: 0.875rem;
+}
+
+>>>>>>> bc0f637 (first commit)
 .dialog-actions {
   display: flex;
   justify-content: flex-end;

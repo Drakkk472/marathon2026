@@ -22,7 +22,12 @@ export const tokenInterceptor: HttpInterceptorFn = (
   // untouched because they use their own guest-session authentication.
   if (req.url.includes('/guest/')) {
     const isOwnerGroupReviewRequest =
+<<<<<<< HEAD
       req.method === 'GET' && /\/guest\/groups\/[^/]+\/(sessions|status)$/.test(req.url);
+=======
+      (req.method === 'GET' && /\/guest\/groups\/[^/]+\/(sessions|status)$/.test(req.url)) ||
+      (req.method === 'DELETE' && /\/guest\/groups\/[^/]+\/sessions\/[^/]+$/.test(req.url));
+>>>>>>> bc0f637 (first commit)
     const tokens = isOwnerGroupReviewRequest ? inject(AuthenticationService).getTokens() : null;
     const guestRequest =
       tokens?.idToken && isOwnerGroupReviewRequest

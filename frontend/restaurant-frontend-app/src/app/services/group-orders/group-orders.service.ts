@@ -56,4 +56,13 @@ export class GroupOrdersService {
       { reservationId }
     );
   }
+<<<<<<< HEAD
+=======
+
+  removeSession$(groupReservationId: string, guestSessionId: string): Observable<void> {
+    return this.http.delete<void>(
+      `${this.baseUrl}/guest/groups/${encodeURIComponent(groupReservationId)}/sessions/${encodeURIComponent(guestSessionId)}`
+    );
+  }
+>>>>>>> bc0f637 (first commit)
 }

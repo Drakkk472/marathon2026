@@ -22,6 +22,34 @@
   margin-bottom: 12px;
 }
 
+<<<<<<< HEAD
+=======
+.header-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px 12px;
+}
+
+.remove-button {
+  padding: 2px 8px 5px;
+  color: color.$neutral-900;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid currentColor;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.remove-button:focus-visible {
+  outline: 3px solid color.$green-300;
+  outline-offset: 3px;
+}
+
+>>>>>>> bc0f637 (first commit)
 .title {
   min-width: 0;
   font-size: 1.125rem;

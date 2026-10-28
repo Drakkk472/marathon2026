@@ -1,11 +1,31 @@
 <article class="card">
   <header class="card-header">
     <h2 class="title">{{ title() }}</h2>
+<<<<<<< HEAD
     @if (participant().isSubmitted) {
       <span class="chip submitted"><span class="status-indicator"></span>Submitted</span>
     } @else {
       <span class="chip pending"><span class="status-indicator"></span>Still choosing</span>
     }
+=======
+    <div class="header-actions">
+      @if (canRemove() && participant().type === 'Guest') {
+        <button
+          class="remove-button"
+          type="button"
+          [attr.aria-label]="'Remove ' + participant().name"
+          (click)="removeClick.emit(participant())"
+        >
+          Remove Guest
+        </button>
+      }
+      @if (participant().isSubmitted) {
+        <span class="chip submitted"><span class="status-indicator"></span>Submitted</span>
+      } @else {
+        <span class="chip pending"><span class="status-indicator"></span>Still choosing</span>
+      }
+    </div>
+>>>>>>> bc0f637 (first commit)
   </header>
 
   @if (participant().items.length) {

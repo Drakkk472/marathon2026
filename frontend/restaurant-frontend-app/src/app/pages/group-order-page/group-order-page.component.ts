@@ -63,6 +63,12 @@ export class GroupOrderPageComponent {
   readonly accessDenied = signal(false);
   readonly isSubmitting = signal(false);
   readonly isConfirmationOpen = signal(false);
+<<<<<<< HEAD
+=======
+  readonly selectedGuest = signal<Participant | null>(null);
+  readonly isRemovingGuest = signal(false);
+  readonly removeGuestError = signal('');
+>>>>>>> bc0f637 (first commit)
   readonly updatedAt = signal<Date | null>(null);
   readonly refreshError = signal(false);
   readonly consolidatedOrder = computed(() => consolidatePreOrder(this.participants()));
@@ -196,6 +202,62 @@ export class GroupOrderPageComponent {
     }
   }
 
+<<<<<<< HEAD
+=======
+  openRemoveGuest(participant: Participant): void {
+    if (participant.type !== 'Guest' || this.groupStatus()?.status !== 'Open') {
+      return;
+    }
+
+    this.removeGuestError.set('');
+    this.selectedGuest.set(participant);
+  }
+
+  closeRemoveGuest(): void {
+    if (!this.isRemovingGuest()) {
+      this.selectedGuest.set(null);
+      this.removeGuestError.set('');
+    }
+  }
+
+  removeGuest(): void {
+    const guest = this.selectedGuest();
+    const invite = this.invite();
+    if (
+      !guest ||
+      guest.type !== 'Guest' ||
+      !invite ||
+      this.groupStatus()?.status !== 'Open' ||
+      this.isRemovingGuest()
+    ) {
+      return;
+    }
+
+    this.isRemovingGuest.set(true);
+    this.removeGuestError.set('');
+    this.groupOrdersService.removeSession$(invite.GroupReservationId, guest.id).subscribe({
+      next: () => {
+        const participants = this.participants().filter(
+          (participant) => participant.id !== guest.id
+        );
+        this.participants.set(participants);
+        const status = this.groupStatus();
+        if (status) {
+          this.groupStatus.set({ ...status, currentParticipants: participants.length });
+        }
+        this.updatedAt.set(new Date());
+        this.refreshError.set(false);
+        this.isRemovingGuest.set(false);
+        this.selectedGuest.set(null);
+      },
+      error: () => {
+        this.isRemovingGuest.set(false);
+        this.removeGuestError.set("Couldn't remove guest. Please try again.");
+      },
+    });
+  }
+
+>>>>>>> bc0f637 (first commit)
   submitPreOrder(): void {
     const invite = this.invite();
     const reservationId = this.route.snapshot.paramMap.get('reservationId');
