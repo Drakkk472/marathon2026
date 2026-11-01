@@ -2,16 +2,12 @@
   <div class="details-wrapper">
     <div class="details-line with-table">
       <div class="details">
-<<<<<<< HEAD
         <img
           class="line-icon"
           src="assets/svg/location-green.svg"
           alt=""
           aria-hidden="true"
         />
-=======
-        <img class="line-icon" src="assets/svg/location-green.svg" alt="" aria-hidden="true" />
->>>>>>> bc0f637 (first commit)
 
         {{ r().locationAddress }}
       </div>
@@ -30,13 +26,9 @@
       }
 
       @if (role() === Roles.CUSTOMER) {
-<<<<<<< HEAD
         <span
           [class]="'status-badge ' + statusView().class"
         >
-=======
-        <span [class]="'status-badge ' + statusView().class">
->>>>>>> bc0f637 (first commit)
           {{ statusView().label }}
         </span>
       }
@@ -44,44 +36,32 @@
 
     <div class="details-line">
       <span class="details">
-<<<<<<< HEAD
         <img
           class="line-icon"
           src="assets/svg/calendar-green.svg"
           alt=""
           aria-hidden="true"
         />
-=======
-        <img class="line-icon" src="assets/svg/calendar-green.svg" alt="" aria-hidden="true" />
->>>>>>> bc0f637 (first commit)
 
         {{ r().startTime | date: 'mediumDate' }}
       </span>
 
-<<<<<<< HEAD
       @if (
         role() === Roles.WAITER &&
         preOrderItemCount() > 0
         ) {
-=======
-      @if (role() === Roles.WAITER && preOrderItemCount() > 0) {
->>>>>>> bc0f637 (first commit)
         <span class="preorder-badge">Pre-order</span>
       }
     </div>
 
     <div class="details-line">
       <span class="details">
-<<<<<<< HEAD
         <img
           class="line-icon"
           src="assets/svg/clock-green.svg"
           alt=""
           aria-hidden="true"
         />
-=======
-        <img class="line-icon" src="assets/svg/clock-green.svg" alt="" aria-hidden="true" />
->>>>>>> bc0f637 (first commit)
 
         {{ r().startTime | date: 'shortTime' }}
         –
@@ -92,16 +72,12 @@
     @if (role() === Roles.WAITER) {
       <div class="details-line">
         <span class="details">
-<<<<<<< HEAD
           <img
             class="line-icon"
             src="assets/svg/person-green.svg"
             alt=""
             aria-hidden="true"
           />
-=======
-          <img class="line-icon" src="assets/svg/person-green.svg" alt="" aria-hidden="true" />
->>>>>>> bc0f637 (first commit)
 
           {{ creatorRole() }} {{ creatorName() }}
         </span>
@@ -109,7 +85,6 @@
 
       <div class="details-line">
         <span class="details">
-<<<<<<< HEAD
           <img
             class="line-icon"
             src="assets/svg/pre-order.svg"
@@ -124,20 +99,12 @@
               ? 'dish'
               : 'dishes'
           }}
-=======
-          <img class="line-icon" src="assets/svg/pre-order.svg" alt="" aria-hidden="true" />
-
-          Pre-order:
-          {{ preOrderItemCount() }}
-          {{ preOrderItemCount() === 1 ? 'dish' : 'dishes' }}
->>>>>>> bc0f637 (first commit)
         </span>
       </div>
     }
 
     <div class="details-line">
       <span class="details">
-<<<<<<< HEAD
         <img
           class="line-icon"
           src="assets/svg/people-green.svg"
@@ -151,12 +118,6 @@
             ? 'Guest'
             : 'Guests'
         }}
-=======
-        <img class="line-icon" src="assets/svg/people-green.svg" alt="" aria-hidden="true" />
-
-        {{ r().guestCount }}
-        {{ r().guestCount === 1 ? 'Guest' : 'Guests' }}
->>>>>>> bc0f637 (first commit)
       </span>
     </div>
   </div>
@@ -211,15 +172,11 @@
             </button>
           }
         } @else if (role() === Roles.CUSTOMER) {
-<<<<<<< HEAD
           <button
             type="button"
             class="button button--primary button--large"
             (click)="onPreOrder()"
           >
-=======
-          <button type="button" class="button button--primary button--large" (click)="onPreOrder()">
->>>>>>> bc0f637 (first commit)
             Pre-order
           </button>
         }
@@ -234,14 +191,10 @@
           Cancel
         </button>
 
-<<<<<<< HEAD
         @if (
           role() === Roles.WAITER &&
           canOpenWaiterPreOrder()
           ) {
-=======
-        @if (role() === Roles.WAITER && canOpenWaiterPreOrder()) {
->>>>>>> bc0f637 (first commit)
           <button
             type="button"
             class="button button--primary button--large"
@@ -255,19 +208,12 @@
 
     @if (role() === Roles.CUSTOMER) {
       @if (
-<<<<<<< HEAD
         r().status !==
         ReservationStatusCustomer.Reserved &&
         r().status !==
         ReservationStatusCustomer.Cancelled &&
         !hasFullFeedback()
         ) {
-=======
-        r().status !== ReservationStatusCustomer.Reserved &&
-        r().status !== ReservationStatusCustomer.Cancelled &&
-        !hasFullFeedback()
-      ) {
->>>>>>> bc0f637 (first commit)
         <button
           type="button"
           class="button button--secondary button--large"
@@ -278,19 +224,12 @@
       }
 
       @if (
-<<<<<<< HEAD
         r().status !==
         ReservationStatusCustomer.Reserved &&
         r().status !==
         ReservationStatusCustomer.Cancelled &&
         hasFullFeedback()
         ) {
-=======
-        r().status !== ReservationStatusCustomer.Reserved &&
-        r().status !== ReservationStatusCustomer.Cancelled &&
-        hasFullFeedback()
-      ) {
->>>>>>> bc0f637 (first commit)
         <button
           type="button"
           class="button button--secondary button--large"
@@ -301,7 +240,6 @@
       }
     }
 
-<<<<<<< HEAD
     @if (
       role() === Roles.WAITER &&
       r().status === ReservationStatusCustomer.Reserved
@@ -314,19 +252,11 @@
             ReservationStatusCustomer.InProgress
           )
         "
-=======
-    @if (role() === Roles.WAITER && r().status === ReservationStatusCustomer.Reserved) {
-      <button
-        type="button"
-        class="button button--secondary button--large"
-        (click)="onStatusChange(ReservationStatusCustomer.InProgress)"
->>>>>>> bc0f637 (first commit)
       >
         Start service
       </button>
     }
 
-<<<<<<< HEAD
     @if (
       role() === Roles.WAITER &&
       r().status ===
@@ -340,13 +270,6 @@
             ReservationStatusCustomer.Finished
           )
         "
-=======
-    @if (role() === Roles.WAITER && r().status === ReservationStatusCustomer.InProgress) {
-      <button
-        type="button"
-        class="button button--secondary button--large"
-        (click)="onStatusChange(ReservationStatusCustomer.Finished)"
->>>>>>> bc0f637 (first commit)
       >
         Finish service
       </button>
@@ -354,7 +277,6 @@
 
     @if (
       role() === Roles.WAITER &&
-<<<<<<< HEAD
       (r().status ===
         ReservationStatusCustomer.Finished ||
         r().status ===
@@ -362,13 +284,6 @@
       isAnonymous() &&
       !hasFullFeedback()
       ) {
-=======
-      (r().status === ReservationStatusCustomer.Finished ||
-        r().status === ReservationStatusCustomer.InProgress) &&
-      isAnonymous() &&
-      !hasFullFeedback()
-    ) {
->>>>>>> bc0f637 (first commit)
       <button
         type="button"
         class="button button--primary button--large"
