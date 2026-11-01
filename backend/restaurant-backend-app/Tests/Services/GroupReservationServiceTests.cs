@@ -2,10 +2,7 @@ using APIHandler.Constants;
 using APIHandler.Entities;
 using APIHandler.Exceptions;
 using APIHandler.Models.GroupReservation;
-<<<<<<< HEAD
-=======
 using APIHandler.Models.GuestReservation;
->>>>>>> bc0f637 (first commit)
 using APIHandler.Repositories.GroupReservations;
 using APIHandler.Repositories.GuestSessions;
 using APIHandler.Repositories.Reservations;
@@ -104,12 +101,7 @@ public class GroupReservationServiceTests
 
     [Theory]
     [InlineAutoData(GroupReservationStatus.Closed)]
-<<<<<<< HEAD
-    [InlineAutoData(GroupReservationStatus.Submitted)]
-    public async Task GetGroupReservationByTokenAsync_GroupReservationIsNotOpen_ThrowsException(
-=======
     public async Task GetGroupReservationByTokenAsync_ClosedGroupReservation_ThrowsExpiredException(
->>>>>>> bc0f637 (first commit)
         GroupReservationStatus status,
         GroupReservation groupReservation)
     {
@@ -124,8 +116,6 @@ public class GroupReservationServiceTests
 
     [Theory]
     [AutoData]
-<<<<<<< HEAD
-=======
     public async Task GetGroupReservationByTokenAsync_SubmittedGroupReservation_ReturnsInviteDetails(
         GroupReservation groupReservation,
         Table table,
@@ -163,7 +153,6 @@ public class GroupReservationServiceTests
 
     [Theory]
     [AutoData]
->>>>>>> bc0f637 (first commit)
     public async Task GetGroupReservationByTokenAsync_WhenGuestLimitIsReached_ReturnsInviteDetails(
         GroupReservation groupReservation,
         Reservation reservation,
@@ -309,14 +298,8 @@ public class GroupReservationServiceTests
     }
 
     [Theory]
-<<<<<<< HEAD
-    [InlineAutoData(GroupReservationStatus.Closed, typeof(GroupReservationExpiredException))]
-    [InlineAutoData(GroupReservationStatus.Submitted, typeof(GroupReservationSubmittedException))]
-    public async Task GetGroupReservationInviteTokenAsync_GroupStatusIsNotOpen_ThrowsException(GroupReservationStatus status, Type type, Reservation reservation, GroupReservation groupReservation)
-=======
     [InlineAutoData(GroupReservationStatus.Closed)]
     public async Task GetGroupReservationInviteTokenAsync_ClosedGroup_ThrowsExpiredException(GroupReservationStatus status, Reservation reservation, GroupReservation groupReservation)
->>>>>>> bc0f637 (first commit)
     {
         reservation.Status = ReservationStatus.Reserved;
         reservation.GuestCount = 3;
@@ -331,9 +314,6 @@ public class GroupReservationServiceTests
             .Setup(r => r.GetByReservationIdAsync(reservation.Id))
             .ReturnsAsync(groupReservation);
 
-<<<<<<< HEAD
-        await Assert.ThrowsAsync(type, () => _service.GetGroupReservationInviteTokenAsync(reservation.Id));
-=======
         await Assert.ThrowsAsync<GroupReservationExpiredException>(() => _service.GetGroupReservationInviteTokenAsync(reservation.Id));
     }
 
@@ -356,6 +336,5 @@ public class GroupReservationServiceTests
         GetGroupInviteTokenResponse result = await _service.GetGroupReservationInviteTokenAsync(reservation.Id);
 
         Assert.Equal(groupReservation.ReservationToken, result.Token);
->>>>>>> bc0f637 (first commit)
     }
 }

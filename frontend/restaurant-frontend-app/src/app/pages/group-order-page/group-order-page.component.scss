@@ -12,7 +12,7 @@
   width: min(100%, 850px);
   margin: 0 auto;
   padding: 30px 32px;
-  background-color: transparent;
+  background-color: color.$neutral-0;
   border: 1px solid color.$neutral-0;
   border-radius: 20px;
   box-shadow: 0 8px 26px color.$shadow;
@@ -289,6 +289,36 @@ h1 {
   color: color.$neutral-0;
   background: color.$green-gradient;
   border-color: color.$green-600;
+}
+
+.remove-confirm-button {
+  min-height: 40px;
+  padding: 8px 18px;
+  color: color.$neutral-0;
+  background-color: color.$red-400;
+  border: 1px solid color.$neutral-600;
+  border-radius: 8px;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 500;
+}
+
+.remove-confirm-button:hover:not(:disabled) {
+  background-color: color.$red-400;
+  filter: brightness(0.9);
+}
+
+.remove-confirm-button:focus-visible {
+  outline: 3px solid color.$green-300;
+  outline-offset: 3px;
+}
+
+.remove-confirm-button:disabled {
+  color: color.$neutral-600;
+  background-color: color.$neutral-200;
+  border-color: color.$neutral-400;
+  cursor: not-allowed;
+  filter: none;
 }
 
 .dialog-actions {

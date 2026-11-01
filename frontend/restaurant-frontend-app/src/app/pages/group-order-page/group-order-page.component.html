@@ -51,14 +51,7 @@
                 d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"
               />
             </svg>
-<<<<<<< HEAD
-            <span
-              >{{ groupStatus()?.currentParticipants }} of
-              {{ groupInvite.MaxGuestCount }} guests</span
-            >
-=======
             <span>{{ participants().length }} of {{ groupInvite.MaxGuestCount }} guests</span>
->>>>>>> bc0f637 (first commit)
           </p>
         </div>
       </header>
@@ -98,11 +91,8 @@
               <app-participant-card
                 [participant]="person"
                 [isMe]="person.id === guestSessionId()"
-<<<<<<< HEAD
-=======
                 [canRemove]="person.type === 'Guest' && groupStatus()?.status === 'Open'"
                 (removeClick)="openRemoveGuest($event)"
->>>>>>> bc0f637 (first commit)
               />
             </li>
           }
@@ -177,8 +167,6 @@
           </div>
         </app-modal>
       }
-<<<<<<< HEAD
-=======
 
       @if (selectedGuest(); as guest) {
         <app-modal title="Remove Guest" (closed)="closeRemoveGuest()">
@@ -209,7 +197,6 @@
           </div>
         </app-modal>
       }
->>>>>>> bc0f637 (first commit)
     }
   </div>
 </main>

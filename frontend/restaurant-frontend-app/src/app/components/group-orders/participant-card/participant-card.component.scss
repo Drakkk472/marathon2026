@@ -30,6 +30,37 @@
   overflow-wrap: anywhere;
 }
 
+.header-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.remove-button {
+  min-height: 28px;
+  padding: 4px 10px;
+  color: color.$neutral-0;
+  background-color: color.$red-400;
+  border: 1px solid color.$neutral-600;
+  border-radius: 6px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.remove-button:hover {
+  background-color: color.$red-400;
+  filter: brightness(0.9);
+}
+
+.remove-button:focus-visible {
+  outline: 3px solid color.$green-300;
+  outline-offset: 3px;
+}
+
 .chip {
   display: inline-flex;
   align-items: center;

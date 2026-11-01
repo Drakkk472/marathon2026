@@ -113,8 +113,6 @@ public class GuestSessionServiceTests
 
     [Theory]
     [AutoData]
-<<<<<<< HEAD
-=======
     public async Task CreateGuestSessionAsync_SubmittedGroup_ThrowsSubmittedExceptionWithoutSaving(
         CreateGuestSessionRequest request,
         GroupReservation groupReservation)
@@ -134,7 +132,6 @@ public class GuestSessionServiceTests
 
     [Theory]
     [AutoData]
->>>>>>> bc0f637 (first commit)
     public async Task AddDishAsync_ShouldAddNewDish_WhenDishDoesNotExistInSession(GuestSession guestSession, GroupReservation groupReservation, Reservation parentReservation, Table table, Dish dish)
     {
         guestSession.Dishes = [];
@@ -286,11 +283,8 @@ public class GuestSessionServiceTests
 
         var exception = await Assert.ThrowsAsync(exceptionType, () =>
             _guestSessionService.AddDishAsync(guestSession.Id, dish.Id, quantity: 2));
-<<<<<<< HEAD
-=======
 
         _mockGuestSessionRepository.Verify(r => r.SaveAsync(It.IsAny<GuestSession>()), Times.Never);
->>>>>>> bc0f637 (first commit)
     }
 
     [Theory]
@@ -968,8 +962,3 @@ public class GuestSessionServiceTests
         };
     }
 }
-
-<<<<<<< HEAD
-
-=======
->>>>>>> bc0f637 (first commit)
