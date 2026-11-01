@@ -114,6 +114,23 @@ describe('Group-order page remove guest', () => {
     expect(removeButtons(create().element)[0].getAttribute('aria-label')).toBe('Remove Andrii');
   });
 
+  it('shows the group-order content on an opaque white panel', () => {
+    const { fixture, element } = create();
+
+    const content = element.querySelector<HTMLElement>('.content')!;
+
+    expect(getComputedStyle(content).backgroundColor).toBe('rgb(255, 255, 255)');
+  });
+
+  it('styles the Remove Guest card button red with a gray outline and readable white text', () => {
+    const { element } = create();
+    const styles = getComputedStyle(removeButtons(element)[0]);
+
+    expect(styles.backgroundColor).toBe('rgb(183, 11, 11)');
+    expect(styles.color).toBe('rgb(255, 255, 255)');
+    expect(styles.borderTopColor).toBe('rgb(87, 87, 87)');
+  });
+
   it('closes the dialog and updates the guest list after the DELETE succeeds', () => {
     service.removeSession$.and.returnValue(of(undefined));
     const { fixture, element } = create();

@@ -34,16 +34,22 @@ describe('Owner group review authentication', () => {
 
   afterEach(() => httpMock.verify());
 
-  it('attaches the owner id token to group sessions and status GETs', () => {
+  it('attaches the owner id token to group reads and guest-removal DELETEs', () => {
     http.get('https://api.test/guest/groups/group-1/sessions').subscribe();
     http.get('https://api.test/guest/groups/group-1/status').subscribe();
+    http.delete('https://api.test/guest/groups/group-1/sessions/session-1').subscribe();
 
     const sessions = httpMock.expectOne('https://api.test/guest/groups/group-1/sessions');
     const status = httpMock.expectOne('https://api.test/guest/groups/group-1/status');
+    const removeGuest = httpMock.expectOne(
+      'https://api.test/guest/groups/group-1/sessions/session-1'
+    );
     expect(sessions.request.headers.get('Authorization')).toBe('Bearer owner-id-token');
     expect(status.request.headers.get('Authorization')).toBe('Bearer owner-id-token');
     sessions.flush({ participants: [], total: 0 });
+    expect(removeGuest.request.headers.get('Authorization')).toMatch(/^Bearer .+/);
     status.flush({ currentParticipants: 1, maxCapacity: 5, status: 'Open' });
+    removeGuest.flush({ participants: [], total: 0 });
   });
 
   it('leaves guest session requests untouched', () => {

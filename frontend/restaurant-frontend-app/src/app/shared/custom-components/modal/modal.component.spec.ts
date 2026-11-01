@@ -36,6 +36,15 @@ describe('ModalComponent', () => {
     expect(element.querySelector('.modal-actions .action-btn')).not.toBeNull();
   });
 
+  it('keeps the dialog opaque white above the dimmed backdrop', () => {
+    const modalCard = element.querySelector<HTMLElement>('.modal-card')!;
+    const backdrop = element.querySelector<HTMLElement>('.modal-backdrop')!;
+
+    expect(getComputedStyle(modalCard).backgroundColor).toBe('rgb(255, 255, 255)');
+    expect(getComputedStyle(modalCard).opacity).toBe('1');
+    expect(getComputedStyle(backdrop).backgroundColor).toBe('rgba(0, 0, 0, 0.45)');
+  });
+
   it('emits closed when the close button is clicked', () => {
     element.querySelector<HTMLButtonElement>('.modal-close')!.click();
 

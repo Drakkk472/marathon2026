@@ -29,11 +29,7 @@ public class GroupReservationService(
         GroupReservation groupReservation = await groupReservationRepository.GetGroupReservationByTokenAsync(token)
             ?? throw new GroupReservationNotFoundException();
 
-<<<<<<< HEAD
-        if (groupReservation.Status != GroupReservationStatus.Open)
-=======
         if (groupReservation.Status == GroupReservationStatus.Closed)
->>>>>>> bc0f637 (first commit)
             throw new GroupReservationExpiredException();
 
         Task<Reservation?> reservationTask = reservationRepository.GetReservationByIdAsync(groupReservation.ReservationId);
@@ -142,12 +138,6 @@ public class GroupReservationService(
 
         GroupReservation groupReservation = (await groupReservationRepository.GetByReservationIdAsync(reservationId))!;
 
-<<<<<<< HEAD
-        if (groupReservation.Status == GroupReservationStatus.Submitted)
-            throw new GroupReservationSubmittedException();
-
-=======
->>>>>>> bc0f637 (first commit)
         if (groupReservation.Status == GroupReservationStatus.Closed)
             throw new GroupReservationExpiredException();
 

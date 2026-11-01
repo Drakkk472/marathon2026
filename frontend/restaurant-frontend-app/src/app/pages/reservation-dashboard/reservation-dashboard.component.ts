@@ -12,7 +12,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router, RouterLink } from '@angular/router';
 import {
   catchError,
-  finalize,
   forkJoin,
   map,
   of,
@@ -466,87 +465,99 @@ export class ReservationDashboardComponent implements OnInit {
   private loadReservations(): void {
     this.reservationsLoaded.set(false);
 
-    forkJoin({
-      reservations:
-        this.reservationService.getReservationsForUser$(),
-      orders: this.ordersService.getPreOrders().pipe(
-        catchError((error) => {
-          console.error('Failed to load pre-orders:', error);
-          return of([]);
-        }),
-      ),
-    })
-      .pipe(
-        switchMap(({ reservations, orders }) => {
+    this.reservationService
+      .getReservationsForUser$()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (reservations) => {
+          const reservationCards: ReservationCustomer[] =
+            reservations.map((reservation) => ({
+              ...reservation,
+              status:
+                reservation.status as unknown as ReservationStatusCustomer,
+              restaurantName: reservation.restaurantName ?? '',
+            }));
+
+          // Render the reservation cards as soon as the primary list arrives.
+          // Feedback and pre-orders enrich card actions/data but must not delay it.
+          this.reservations.set(reservationCards);
+          this.reservationsLoaded.set(true);
+
           if (reservations.length === 0) {
-            return of<ReservationCustomer[]>([]);
+            return;
           }
 
-          return forkJoin(
-            reservations.map((reservation) =>
-              this.reservationService
-                .getReservationFeedback(reservation.id)
-                .pipe(
-                  catchError((error: HttpErrorResponse) => {
-                    if (error.status !== 404) {
-                      console.error(
-                        `Failed to load feedback for reservation ${reservation.id}:`,
-                        error,
-                      );
-                    }
+          forkJoin({
+            orders: this.ordersService.getPreOrders().pipe(
+              catchError((error) => {
+                console.error('Failed to load pre-orders:', error);
+                return of([]);
+              }),
+            ),
+            feedbacks: forkJoin(
+              reservations.map((reservation) =>
+                this.reservationService
+                  .getReservationFeedback(reservation.id)
+                  .pipe(
+                    catchError((error: HttpErrorResponse) => {
+                      if (error.status !== 404) {
+                        console.error(
+                          `Failed to load feedback for reservation ${reservation.id}:`,
+                          error,
+                        );
+                      }
 
-                    return of(null);
-                  }),
-                  map(
-                    (
-                      feedback,
-                    ): ReservationCustomer => {
-                      const preOrder = orders.find(
-                        (order) =>
-                          order.reservationId ===
-                          reservation.id,
-                      );
+                      return of(null);
+                    }),
+                  ),
+              ),
+            ),
+          })
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe({
+              next: ({ orders, feedbacks }) => {
+                const enrichments = new Map(
+                  reservations.map((reservation, index) => {
+                    const feedback = feedbacks[index];
+                    const hasFeedback =
+                      feedback?.service != null ||
+                      feedback?.cuisineExperience != null;
+                    const preOrder = orders.find(
+                      (order) => order.reservationId === reservation.id,
+                    );
 
-                      const hasFeedback =
-                        feedback?.service != null ||
-                        feedback?.cuisineExperience != null;
-
-                      return {
-                        ...reservation,
-                        status:
-                          reservation.status as unknown as ReservationStatusCustomer,
-                        restaurantName:
-                          reservation.restaurantName ?? '',
-                        feedback: hasFeedback
-                          ? feedback ?? undefined
-                          : undefined,
+                    return [
+                      reservation.id,
+                      {
+                        feedback: hasFeedback ? feedback ?? undefined : undefined,
                         preOrder,
                         hasSubmittedPreOrder:
                           preOrder != null &&
-                          (preOrder.status === 1 ||
-                            preOrder.status === 3),
-                      };
-                    },
-                  ),
-                ),
-            ),
-          );
-        }),
-        finalize(() => {
-          this.reservationsLoaded.set(true);
-        }),
-        takeUntilDestroyed(this.destroyRef),
-      )
-      .subscribe({
-        next: (reservations) => {
-          this.reservations.set(reservations);
+                          (preOrder.status === 1 || preOrder.status === 3),
+                      },
+                    ] as const;
+                  }),
+                );
+
+                this.reservations.update((currentReservations) =>
+                  currentReservations.map((reservation) => ({
+                    ...reservation,
+                    ...enrichments.get(reservation.id),
+                  })),
+                );
+              },
+              error: (error) => {
+                console.error('Failed to load reservation details:', error);
+              },
+            });
         },
         error: (error) => {
+          this.reservations.set([]);
+          this.reservationsLoaded.set(true);
           console.error(
             'Failed to load reservations:',
             error,
           );
-          this.reservations.set([]);
         },
       });
   }

@@ -55,6 +55,11 @@
         background-color: color.$orange-100;
       }
 
+      &.submitted {
+        color: color.$green-800;
+        background-color: color.$green-100;
+      }
+
       &.in-progress {
         background-color: color.$blue-100;
       }
