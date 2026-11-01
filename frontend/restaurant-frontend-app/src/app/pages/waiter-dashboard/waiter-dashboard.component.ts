@@ -27,10 +27,6 @@ import { Table } from '@app/models/tables/table.model';
 import { TimeRange } from '@app/models/tables/time-range.model';
 import { PreOrdersService } from '@app/services/pre-orders/pre-orders.service';
 import { ReservationService } from '@app/services/reservation/reservation.service';
-<<<<<<< HEAD
-=======
-import { OrderStatus } from '@app/models/orders/order.model';
->>>>>>> bc0f637 (first commit)
 import { TableService } from '@app/services/table/table.service';
 import { ToastService } from '@app/services/toast/toast.service';
 import { UsersService } from '@app/services/users/users.service';
@@ -46,11 +42,7 @@ import {
 } from '@app/shared/helpers/date-helpers';
 
 import { FeedbackQrModalComponent } from './feedback-qr-modal/feedback-qr-modal.component';
-<<<<<<< HEAD
 import {LocationsService} from '@app/services/locations/locations.service';
-=======
-import { LocationsService } from '@app/services/locations/locations.service';
->>>>>>> bc0f637 (first commit)
 
 interface ReservationFilters {
   date: string;
@@ -84,11 +76,7 @@ const ANY_TABLE_OPTION: SelectOption = {
   templateUrl: './waiter-dashboard.component.html',
   styleUrl: './waiter-dashboard.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-<<<<<<< HEAD
   standalone: true
-=======
-  standalone: true,
->>>>>>> bc0f637 (first commit)
 })
 export class WaiterDashboardComponent implements OnInit {
   private readonly authService = inject(AuthenticationService);
@@ -280,14 +268,10 @@ export class WaiterDashboardComponent implements OnInit {
         },
         error: (error) => {
           console.error('Could not load waiter location:', error);
-<<<<<<< HEAD
           this.toast.error(
             'Could not create the feedback QR code.',
             'Feedback'
           );
-=======
-          this.toast.error('Could not create the feedback QR code.', 'Feedback');
->>>>>>> bc0f637 (first commit)
         },
       });
   }
@@ -478,13 +462,8 @@ export class WaiterDashboardComponent implements OnInit {
           reservations.length === 0
             ? of([] as ReservationCustomer[])
             : forkJoin(
-<<<<<<< HEAD
               reservations.map((reservation) => this.enrichReservation(reservation, waiterName))
             )
-=======
-                reservations.map((reservation) => this.enrichReservation(reservation, waiterName))
-              )
->>>>>>> bc0f637 (first commit)
         ),
         takeUntilDestroyed(this.destroyRef)
       )
@@ -515,15 +494,9 @@ export class WaiterDashboardComponent implements OnInit {
 
     const creator$ = reservation.customerId
       ? this.usersService.getUserName(reservation.customerId).pipe(
-<<<<<<< HEAD
         map((name) => ({ name, role: 'Customer' as const })),
         catchError(() => of({ name: 'Unknown customer', role: 'Customer' as const }))
       )
-=======
-          map((name) => ({ name, role: 'Customer' as const })),
-          catchError(() => of({ name: 'Unknown customer', role: 'Customer' as const }))
-        )
->>>>>>> bc0f637 (first commit)
       : of({ name: waiterName, role: 'Waiter' as const });
 
     const preOrder$ = this.ordersService.getByReservationId(reservation.id).pipe(
@@ -544,11 +517,7 @@ export class WaiterDashboardComponent implements OnInit {
         createdByName: creator.name,
         createdByRole: creator.role,
         preOrder,
-<<<<<<< HEAD
         hasSubmittedPreOrder: preOrder != null && (preOrder.status === 1 || preOrder.status === 3),
-=======
-        hasSubmittedPreOrder: preOrder?.status === OrderStatus.SubmittedByCustomer,
->>>>>>> bc0f637 (first commit)
       }))
     );
   }
@@ -592,14 +561,10 @@ export class WaiterDashboardComponent implements OnInit {
         },
         error: (error: unknown) => {
           console.error('Failed to load waiter location or tables:', error);
-<<<<<<< HEAD
           this.toast.error(
             'The waiter location or tables could not be loaded.',
             'Tables'
           );
-=======
-          this.toast.error('The waiter location or tables could not be loaded.', 'Tables');
->>>>>>> bc0f637 (first commit)
         },
       });
   }

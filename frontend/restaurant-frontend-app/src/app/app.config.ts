@@ -1,5 +1,6 @@
 import { ApplicationConfig, isDevMode, provideAppInitializer, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
+import 'jasmine';
 
 import { routes } from './app.routes';
 import { provideHttpClient, withInterceptors, withXhr } from '@angular/common/http';
