@@ -914,6 +914,98 @@ public class GuestSessionServiceTests
         Assert.Equal(expectedTotal, result.Total);
     }
 
+    [Fact]
+    public async Task GetGroupReservationStatusAsync_OwnerAndGuestSessions_CountsEachStoredSessionOnce()
+    {
+        const string groupReservationId = "group-reservation-1";
+        const string reservationId = "reservation-1";
+        var groupReservation = new GroupReservation
+        {
+            GroupReservationId = groupReservationId,
+            ReservationId = reservationId,
+            ReservationToken = "reservation-token",
+            Status = GroupReservationStatus.Open
+        };
+        var reservation = new Reservation
+        {
+            Id = reservationId,
+            TableId = "table-1",
+            WaiterId = "waiter-1",
+            GuestCount = 4
+        };
+        var sessions = new List<GuestSession>
+        {
+            new()
+            {
+                Id = "owner-session",
+                GroupReservationId = groupReservationId,
+                GuestName = "Owner",
+                Dishes = [],
+                IsOwnerSession = true,
+                OwnerUserId = "owner-1"
+            },
+            new()
+            {
+                Id = "guest-session",
+                GroupReservationId = groupReservationId,
+                GuestName = "Guest",
+                Dishes = [],
+                IsOwnerSession = false
+            }
+        };
+
+        _mockGroupReservationRepository
+            .Setup(r => r.GetGroupReservationByIdAsync(groupReservationId))
+            .ReturnsAsync(groupReservation);
+        _mockReservationRepository
+            .Setup(r => r.GetReservationByIdAsync(reservationId))
+            .ReturnsAsync(reservation);
+        _mockGuestSessionRepository
+            .Setup(r => r.GetAllByGroupReservationIdAsync(groupReservationId))
+            .ReturnsAsync(sessions);
+
+        var result = await _guestSessionService.GetGroupReservationStatusAsync(groupReservationId);
+
+        Assert.Equal(2, result.CurrentParticipants);
+        Assert.Equal(reservation.GuestCount, result.MaxCapacity);
+        Assert.Equal(groupReservation.Status, result.Status);
+    }
+
+    [Fact]
+    public async Task GetGroupReservationStatusAsync_NoStoredSessions_ReturnsZeroCurrentParticipants()
+    {
+        const string groupReservationId = "group-reservation-1";
+        const string reservationId = "reservation-1";
+        var groupReservation = new GroupReservation
+        {
+            GroupReservationId = groupReservationId,
+            ReservationId = reservationId,
+            ReservationToken = "reservation-token",
+            Status = GroupReservationStatus.Open
+        };
+        var reservation = new Reservation
+        {
+            Id = reservationId,
+            TableId = "table-1",
+            WaiterId = "waiter-1",
+            GuestCount = 4
+        };
+
+        _mockGroupReservationRepository
+            .Setup(r => r.GetGroupReservationByIdAsync(groupReservationId))
+            .ReturnsAsync(groupReservation);
+        _mockReservationRepository
+            .Setup(r => r.GetReservationByIdAsync(reservationId))
+            .ReturnsAsync(reservation);
+        _mockGuestSessionRepository
+            .Setup(r => r.GetAllByGroupReservationIdAsync(groupReservationId))
+            .ReturnsAsync([]);
+
+        var result = await _guestSessionService.GetGroupReservationStatusAsync(groupReservationId);
+
+        Assert.Equal(0, result.CurrentParticipants);
+    }
+
     public static TheoryData<IEnumerable<string>, IEnumerable<Dish>, List<OrderItem>, decimal> PepareDishesForGuestSession()
     {
         var dishMap = new Dictionary<string, Dish>()

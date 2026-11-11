@@ -94,11 +94,8 @@
               <app-participant-card
                 [participant]="person"
                 [isMe]="person.id === guestSessionId()"
-<<<<<<< HEAD
                 [canRemove]="person.type === 'Guest' && groupStatus()?.status === 'Open'"
                 (removeClick)="openRemoveGuest($event)"
-=======
->>>>>>> main
               />
             </li>
           }
